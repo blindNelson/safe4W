@@ -20,7 +20,7 @@ namespace API_praticas.Controllers
             return _context.denuncia.ToList();
         }
 
-        [HttpGet("{idRegiao}")]
+        [HttpGet("regiao:{idRegiao}")]
         public ActionResult<int> GetQtdRegiao(int idRegiao){
             try{
                 var result = _context.denuncia.Find(idRegiao);
@@ -31,6 +31,21 @@ namespace API_praticas.Controllers
             catch{
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> post(denuncia model){
+            try{
+                _context.denuncia.Add(model);
+                if (_context.denuncia.Find(model.idRegiao)==null)
+                    
+                if (await _context.SaveChangesAsync()==1)
+                    return Ok();
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+            return BadRequest();
         }
     }
 }
