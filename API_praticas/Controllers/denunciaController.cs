@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using API_praticas.data;
 using API_praticas.models;
@@ -20,7 +21,11 @@ namespace API_praticas.Controllers
             return _context.denuncia.ToList();
         }
 
+
+
+        //devolve o numero de denuncias feitas numa região
         [HttpGet("regiao:{idRegiao}")]
+        [AllowAnonymous]
         public ActionResult<int> GetQtdRegiao(int idRegiao){
             try{
                 var result = _context.denuncia.Find(idRegiao);
@@ -33,12 +38,32 @@ namespace API_praticas.Controllers
             }
         }
 
+
+/*
+        [HttpGet]
+        [Route("user")]
+        [Authorize()]
+        public ActionResult<List<denuncia>> getDenuncia([FromBody] int idUsuario){
+            try{
+                var result = _context.denuncia.Where(se => se.idUsuario==idUsuario);
+                if(result==null)
+                    return NotFound();
+                return Ok(result);
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+        }*/
+
+
+
         [HttpPost]
-        public async Task<ActionResult> post(denuncia model){
+        [AllowAnonymous]
+        public async Task<ActionResult> denunciaAnonima([FromBody]denuncia model){
             try{
                 _context.denuncia.Add(model);
                 if (_context.denuncia.Find(model.idRegiao)==null)
-                    
+                    return NotFound();                    
                 if (await _context.SaveChangesAsync()==1)
                     return Ok();
             }
@@ -47,5 +72,7 @@ namespace API_praticas.Controllers
             }
             return BadRequest();
         }
+
+
     }
 }
