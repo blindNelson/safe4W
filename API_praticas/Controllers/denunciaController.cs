@@ -103,12 +103,12 @@ namespace API_praticas.Controllers
 
 
         [HttpPut]
-        [Route("user")]
+        [Route("user/{idDenuncia}")]
         [Authorize]
-        public async Task<ActionResult> put(denuncia newDadosDenuncias){
+        public async Task<ActionResult> put(int idDenuncia, denuncia newDadosDenuncias){
             try{
                 int idUsuario = int.Parse(User.Identity.Name);
-                var result = await _context.denuncia.FindAsync(idUsuario);
+                var result = await _context.denuncia.FindAsync(idDenuncia);
                 if(idUsuario != result.idUsuario)
                     return BadRequest();
                 result.idUsuario = result.idUsuario;
