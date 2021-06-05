@@ -1,0 +1,20 @@
+.menu-principal {
+    background-color: #252323 ;
+    height: 60px;
+    width: 100%;
+    color: #fff;
+}
+
+.conteudo-margem {
+    width: 980px;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.logo {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    margin-top:-12px;
+}
