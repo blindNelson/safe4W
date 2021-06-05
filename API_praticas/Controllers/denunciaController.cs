@@ -125,5 +125,26 @@ namespace API_praticas.Controllers
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
             }
         }
+
+        [HttpDelete]
+        [Route("user/{idDenuncia}")]
+        [Authorize]
+        public async Task<ActionResult> delete(int idDenuncia){
+            try{
+                int idUsuario = int.Parse(User.Identity.Name);
+                var denuncia = await _context.denuncia.FindAsync(idDenuncia);
+                if(idUsuario == denuncia.idUsuario){
+                    if(denuncia == null)
+                        return NotFound();
+                    _context.Remove(denuncia);
+                    await _context.SaveChangesAsync();
+                    return NoContent();
+                }
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+            return BadRequest();
+        }
     }
 }
