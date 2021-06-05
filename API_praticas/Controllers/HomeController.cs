@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using System.Text.Json;
 
 using API_praticas.data;
 using API_praticas.models;
@@ -60,10 +61,49 @@ namespace API_praticas.Controllers
             }
             return BadRequest();
         }
+    
+    
 
-        [HttpGet]
-        [Route("Authenticated")]
+        [HttpPut]
         [Authorize]
-        public string Authenticated() => User.Identity.Name;
+        public async Task<ActionResult> put(usuario newDadosUsuarios){
+            try{
+                int idUsuario = int.Parse(User.Identity.Name);
+                var result = await _context.usuario.FindAsync(idUsuario);
+                if(idUsuario != result.idUsuario)
+                    return BadRequest();
+                result.idUsuario = result.idUsuario;
+                result.nome = newDadosUsuarios.nome;
+                result.senha = newDadosUsuarios.senha;
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+        }/*
+
+        [HttpDelete]
+        [Authorize]
+        public async Task<ActionResult> delete(){
+            try{
+                var usuario = await _context.usuario.FindAsync(int.Parse(User.Identity.Name));
+                var denuncias = await _context.denuncia.FindAsync(int.Parse(User.Identity.Name));
+                if(usuario == null)
+                    return NotFound();
+                if(denuncias!=null)
+                    _context.denuncia.Remove(int.Parse(User.Identity.Name));
+                _context.Remove(usuario);
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch(JsonException ex){
+                return this.StatusCode(StatusCodes.Status500InternalServerError, ex.InnerException);
+            }
+            catch(Exception ex){
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+            return BadRequest();
+        }*/
     }
 }

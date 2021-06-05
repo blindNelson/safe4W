@@ -7,6 +7,7 @@ namespace API_praticas.data
         public denunciaContext(DbContextOptions<denunciaContext> options): base (options){ }
 
         public DbSet<denuncia> denuncia{get;set;}
-        public DbSet<usuario> usuario{get;set;}    
+        public DbSet<usuario> usuario{get;set;}  
+        public DbSet<regiao> regiao{get;set;}  
     }
 }

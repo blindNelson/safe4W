@@ -23,13 +23,13 @@ namespace API_praticas.Controllers
 
 
 
-        //devolve o numero de denuncias feitas numa região
+
+
         [HttpGet("regiao:{idRegiao}")]
         [AllowAnonymous]
         public ActionResult<int> GetQtdRegiao(int idRegiao){
             try{
-                var result = _context.denuncia.Find(idRegiao);
-                if(idRegiao==null)
+                if(_context.regiao.Find(idRegiao)==null)
                     return NotFound();
                 return Ok(_context.denuncia.Count(rr => rr.idRegiao==idRegiao));
             }
@@ -39,13 +39,14 @@ namespace API_praticas.Controllers
         }
 
 
-/*
+
+
         [HttpGet]
         [Route("user")]
-        [Authorize()]
-        public ActionResult<List<denuncia>> getDenuncia([FromBody] int idUsuario){
+        [Authorize]
+        public ActionResult<List<denuncia>> getDenuncia(){
             try{
-                var result = _context.denuncia.Where(se => se.idUsuario==idUsuario);
+                var result = _context.denuncia.Where(se => se.idUsuario==int.Parse(User.Identity.Name)).ToList();
                 if(result==null)
                     return NotFound();
                 return Ok(result);
@@ -53,7 +54,13 @@ namespace API_praticas.Controllers
             catch{
                 return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
             }
-        }*/
+        }
+
+
+
+
+
+
 
 
 
@@ -62,7 +69,7 @@ namespace API_praticas.Controllers
         public async Task<ActionResult> denunciaAnonima([FromBody]denuncia model){
             try{
                 _context.denuncia.Add(model);
-                if (_context.denuncia.Find(model.idRegiao)==null)
+                if (_context.regiao.Find(model.idRegiao)==null)
                     return NotFound();                    
                 if (await _context.SaveChangesAsync()==1)
                     return Ok();
@@ -74,5 +81,49 @@ namespace API_praticas.Controllers
         }
 
 
+        [HttpPost]
+        [Route("user")]
+        [Authorize]
+        public async Task<ActionResult<string>> denunciaUsuario([FromBody]denuncia model){
+            try{
+                if(model==null)
+                    return BadRequest("modelo inexistente");
+                if(_context.regiao.Find(model.idRegiao) == null)
+                    return BadRequest($"região inexistente: {model.idRegiao.ToString()}");         
+                model.idUsuario=int.Parse(User.Identity.Name);
+                _context.denuncia.Add(model);        
+                if (await _context.SaveChangesAsync()==1)
+                    return Ok();
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+            return BadRequest();
+        }
+
+
+        [HttpPut]
+        [Route("user")]
+        [Authorize]
+        public async Task<ActionResult> put(denuncia newDadosDenuncias){
+            try{
+                int idUsuario = int.Parse(User.Identity.Name);
+                var result = await _context.denuncia.FindAsync(idUsuario);
+                if(idUsuario != result.idUsuario)
+                    return BadRequest();
+                result.idUsuario = result.idUsuario;
+                result.idDenuncia = result.idDenuncia;
+                result.idRegiao = newDadosDenuncias.idRegiao;
+                result.nomeVitima = newDadosDenuncias.nomeVitima;
+                result.nomeAgressor = newDadosDenuncias.nomeAgressor;
+                result.descricaoDenuncia = newDadosDenuncias.descricaoDenuncia;
+                result.relacao = newDadosDenuncias.relacao;
+                await _context.SaveChangesAsync();
+                return NoContent();
+            }
+            catch{
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "Falha no acesso ao banco de dados.");
+            }
+        }
     }
 }
