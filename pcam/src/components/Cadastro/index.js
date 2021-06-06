@@ -8,4 +8,6 @@ class Cadastro extends React.Component{
             </div>
         );
     }
-} 
+}
+
+export default Cadastro

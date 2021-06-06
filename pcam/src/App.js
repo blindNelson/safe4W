@@ -1,15 +1,19 @@
-import React from 'react';
-import EnvioDenuncia from './components/EnvioDenuncia/EnvioDenunca.js';
+import React, { Component } from 'react';
+import { Switch, Route, Redirect } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Menu from './components/Menu/Menu.js';
-import Navegacao from './components/Navegacao/Navegacao.js';
+import Navegacao from './components/Navegacao';
+import Rotas from './components/Rotas/Rotas.js';
 
 function App() {
   return (
-    <div className="App">
-      <Menu />
-      <Navegacao />
-      <EnvioDenuncia />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Menu />
+        <Navegacao />
+        <Rotas />
+      </div>
+    </BrowserRouter>
   );
 }
 

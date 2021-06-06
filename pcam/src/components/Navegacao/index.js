@@ -8,13 +8,13 @@ function Navegacao() {
                 <div className="menu-navegacao">
                     <ul>
                         <li>
-                            <a href="">Início</a>
+                            <a href="/">Início</a>
                         </li>
                         <li>
                             <a href="">Apoio</a>
                         </li>
                         <li>
-                            <a href="">Conscitentização</a>
+                            <a href="/denuncia">Denuncia</a>
                         </li>
                     </ul>
                 </div>
