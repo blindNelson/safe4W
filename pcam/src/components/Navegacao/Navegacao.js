@@ -16,13 +16,7 @@ function Navegacao() {
                         <li>
                             <a href="">Conscitentização</a>
                         </li>
-                        <li>
-                            <a href="">Denúncia</a>
-                        </li>
                     </ul>
-                </div>
-                <div className="busca">
-                    <input type="text" placeholder="Pesquise algo" />
                 </div>
             </div>
         </nav>

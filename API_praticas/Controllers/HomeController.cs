@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
+using System.Security.Claims;
 using System.Text.Json;
 
 using API_praticas.data;
@@ -48,7 +49,7 @@ namespace API_praticas.Controllers
         }
 
         [HttpPost]
-        [Route("sigin")]
+        [Route("sigup")]
         [AllowAnonymous]
         public async Task<ActionResult> Cadastro([FromBody]usuario model){
             try{
@@ -61,7 +62,7 @@ namespace API_praticas.Controllers
             }
             return BadRequest();
         }
-    
+
     
 
         [HttpPut]

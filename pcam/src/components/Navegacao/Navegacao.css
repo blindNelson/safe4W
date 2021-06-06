@@ -1,6 +1,6 @@
 .navegacao {
     position: relative;
-    height: 80px;
+    height: 60px;
     border-bottom: 3px solid #efefef;
     margin: 0 auto;
 }
@@ -13,7 +13,7 @@
 
 .menu-navegacao ul {
     position: absolute;
-    top: 30px;
+    top: 10px;
     margin: 0 !important;
     padding:0 !important;
 }
@@ -39,33 +39,5 @@
 }
 
 .menu-navegacao ul li a:hover {
-    color: #a10033;
-}
-
-
-.busca {
-    position: absolute;
-    right: 0;
-    text-align: center;
-    width: 20%;
-    float: right;
-}
-
-.busca input {
-    outline: none;
-    font-family: Ubuntu;
-    background-image: url('../../assets/imagens/icone-search.png');
-    background-position: 96%;
-    background-repeat: no-repeat;
-    margin-top: 19px;
-    width: 190px;
-    height: 20px;
-    padding-left: 12px;
-    border: 1px solid #d6d6d6;
-    transition: 0.25s;
-}
-
-.busca input:focus {
-    border-color: #a10033;
     color: #a10033;
 }
