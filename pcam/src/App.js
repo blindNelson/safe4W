@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
-import Menu from './components/Menu/Menu.js';
 import Navegacao from './components/Navegacao';
 import Rotas from './components/Rotas/Rotas.js';
 
