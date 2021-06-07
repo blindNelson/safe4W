@@ -1,0 +1,48 @@
+.recebebores {
+    display: inline-block;
+    padding: 12px;
+    margin: 8px 0;
+}
+
+.inclui-form {
+    width: 80%;
+    height: 100%;
+    position: relative;
+    margin: 20px auto;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    justify-content: center;
+    
+    text-align: center;
+}
+
+.content{
+    display:inline-block;
+    margin: auto;
+    text-align: left;
+}
+
+textarea{
+    font-size: 14px;
+    resize: vertical;
+    overflow: auto;
+}
+
+.btnEnviar {
+    background-color: #a10033;/**/
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px 5px 5px 30px;
+}
+.btnCancelar{
+    background-color: gainsboro;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+}

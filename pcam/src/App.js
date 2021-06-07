@@ -11,7 +11,9 @@ function App() {
       <div className="App">
         <Menu />
         <Navegacao />
-        <Rotas />
+        <div className="Conteudo">
+          <Rotas />
+        </div>
       </div>
     </BrowserRouter>
   );
