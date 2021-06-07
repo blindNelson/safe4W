@@ -9,7 +9,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Menu />
         <Navegacao />
         <div className="Conteudo">
           <Rotas />

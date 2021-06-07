@@ -25,7 +25,7 @@
 
 textarea{
     font-size: 14px;
-    resize: vertical;
+    resize: none;
     overflow: auto;
 }
 

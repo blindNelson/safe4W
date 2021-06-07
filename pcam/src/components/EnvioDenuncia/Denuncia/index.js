@@ -87,7 +87,7 @@ export default class Denuncia extends React.Component{
                     </tr>
                     <tr>
                         <td colSpan="4">
-                            <textarea rows="20" style={{width:"100%"}} id="descricao" placeholder="Descrição da agressão"className="form-input" />
+                            <textarea rows="15" style={{width:"100%"}} id="descricao" placeholder="Descrição da agressão"className="form-input" />
                         </td>
                     </tr>
                 </table>
